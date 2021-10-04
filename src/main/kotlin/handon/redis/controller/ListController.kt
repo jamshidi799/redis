@@ -29,12 +29,12 @@ class ListController(private val listOperationService: ListOperationService) {
         return listOperationService.leftPush(key, *body.elements.toTypedArray())
     }
 
-    @DeleteMapping("/rPush/{key}")
+    @DeleteMapping("/rPop/{key}")
     fun leftPop(@PathVariable key: String): String? {
         return listOperationService.leftPop(key)
     }
 
-    @DeleteMapping("/rPush/{key}")
+    @DeleteMapping("/rPop/{key}")
     fun leftPopWithCount(@PathVariable key: String, @RequestParam("count") count: Int): List<String> {
         return listOperationService.leftPop(key, count)
     }
