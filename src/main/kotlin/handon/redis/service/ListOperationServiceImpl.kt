@@ -1,7 +1,9 @@
 package handon.redis.service
 
 import handon.redis.repository.ListRepository
+import org.springframework.stereotype.Service
 
+@Service
 class ListOperationServiceImpl(
     private val repository: ListRepository
 ) : ListOperationService {
