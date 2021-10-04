@@ -8,19 +8,16 @@ class ListOperationServiceImpl(
 
     override fun listSet(key: String, index: Int, element: String): String {
         repository.map[key]?.let {
-            if (index >= it.size) throw IllegalArgumentException("index $index is greater than list size ${it.size}")
             it[index] = element
             return "OK"
         }
-        throw IllegalArgumentException("key $key not found")
+        throw IllegalArgumentException("key $key not found")    // todo: create custom exception type
     }
 
-    override fun listIndex(key: String, index: Int): String? {
+    override fun listIndex(key: String, index: Int): String {
         repository.map[key]?.let {
-            if (index >= it.size) throw IllegalArgumentException("index $index is greater than list size ${it.size}")
             if (index >= 0) return it[index]
-            if (it.size + index >= 0) return it[it.size + index]
-            throw IllegalArgumentException("index $index is negative")
+            return it[it.size + index]
         }
         throw IllegalArgumentException("key $key not found")
     }
@@ -43,7 +40,7 @@ class ListOperationServiceImpl(
         return elements.size
     }
 
-    override fun leftPop(key: String): String? {
+    override fun leftPop(key: String): String {
         repository.map[key]?.let {
             return it.removeFirst()
         }
@@ -52,7 +49,9 @@ class ListOperationServiceImpl(
 
     override fun leftPop(key: String, count: Int): List<String> {
         repository.map[key]?.let {
-            return it.drop(count)
+            val oldList = it.toMutableList()
+            it.drop(count)
+            return oldList.dropLast(oldList.size - count)
         }
         throw IllegalArgumentException("key $key not found")
     }
