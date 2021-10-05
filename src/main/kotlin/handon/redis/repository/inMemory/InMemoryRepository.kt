@@ -1,4 +1,4 @@
-package handon.redis.repository
+package handon.redis.repository.inMemory
 
 
 abstract class InMemoryRepository <T> {

@@ -1,0 +1,10 @@
+spring:
+  data:
+    cassandra:
+      contact-points: localhost
+      port: 9042
+      schema-action: create_if_not_exists
+      keyspace-name: redis
+  jpa:
+    hibernate:
+      ddl-auto: update

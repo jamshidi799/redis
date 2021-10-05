@@ -1,16 +1,16 @@
 package handon.redis.service
 
-import handon.redis.entity.ListValue
-import handon.redis.repository.ListRepository
+import handon.redis.entity.inMemory.ListValue
+import handon.redis.repository.inMemory.InMemoryListRepository
 import org.springframework.stereotype.Service
 
 @Service
 class ListOperationServiceImpl(
-    private val repository: ListRepository
+    private val repositoryInMemory: InMemoryListRepository
 ) : ListOperationService {
 
     override fun listSet(key: String, index: Int, element: String): String {
-        repository.map[key]?.value?.let {
+        repositoryInMemory.map[key]?.value?.let {
             it[index] = element
             return "OK"
         }
@@ -18,7 +18,7 @@ class ListOperationServiceImpl(
     }
 
     override fun listIndex(key: String, index: Int): String {
-        repository.map[key]?.value?.let {
+        repositoryInMemory.map[key]?.value?.let {
             if (index >= 0) return it[index]
             return it[it.size + index]
         }
@@ -26,32 +26,32 @@ class ListOperationServiceImpl(
     }
 
     override fun rightPush(key: String, vararg elements: String): Int {
-        repository.map[key]?.value?.let {
+        repositoryInMemory.map[key]?.value?.let {
             it.addAll(elements)
             return it.size
         }
-        repository.map[key] = ListValue(elements.asList().toMutableList(), null)
+        repositoryInMemory.map[key] = ListValue(elements.asList().toMutableList(), null)
         return elements.size
     }
 
     override fun leftPush(key: String, vararg elements: String): Int {
-        repository.map[key]?.value?.let {
+        repositoryInMemory.map[key]?.value?.let {
             it.addAll(0, elements.toList())
             return it.size
         }
-        repository.map[key] = ListValue(elements.asList().toMutableList(), null)
+        repositoryInMemory.map[key] = ListValue(elements.asList().toMutableList(), null)
         return elements.size
     }
 
     override fun leftPop(key: String): String {
-        repository.map[key]?.value?.let {
+        repositoryInMemory.map[key]?.value?.let {
             return it.removeFirst()
         }
         throw IllegalArgumentException("key $key not found")
     }
 
     override fun leftPop(key: String, count: Int): List<String> {
-        repository.map[key]?.value?.let {
+        repositoryInMemory.map[key]?.value?.let {
             val oldList = it.toMutableList()
             it.drop(count)
             return oldList.dropLast(oldList.size - count)

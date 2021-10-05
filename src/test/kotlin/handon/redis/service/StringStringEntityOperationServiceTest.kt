@@ -1,16 +1,14 @@
 package handon.redis.service
 
-import handon.redis.repository.StringRepository
+import handon.redis.repository.inMemory.InMemoryStringRepository
 import org.junit.Assert.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import java.lang.IllegalArgumentException
 import java.time.Duration
 
 
-internal class StringStringOperationServiceTest {
+internal class StringStringEntityOperationServiceTest {
 
-    private val repository = StringRepository()
+    private val repository = InMemoryStringRepository()
     private val underTest = StringOperationServiceImpl(repository)  // todo: serviceImpl?
 
     @Test

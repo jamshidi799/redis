@@ -1,7 +1,6 @@
-package handon.redis.entity
+package handon.redis.entity.inMemory
 
 import java.time.Instant
-import java.util.*
 
 sealed class Value<T> {
     abstract val value: T

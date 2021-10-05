@@ -1,12 +1,13 @@
 package handon.redis.service
 
-import handon.redis.repository.ListRepository
-import org.junit.jupiter.api.Assertions.*
+import handon.redis.repository.inMemory.InMemoryListRepository
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 
 internal class ListOperationServiceImplTest {
 
-    private val repository = ListRepository()
+    private val repository = InMemoryListRepository()
     private val underTest = ListOperationServiceImpl(repository)
 
     @Test

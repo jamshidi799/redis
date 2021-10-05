@@ -1,4 +1,4 @@
-package handon.redis.entity
+package handon.redis.entity.inMemory
 
 import java.time.Instant
 
