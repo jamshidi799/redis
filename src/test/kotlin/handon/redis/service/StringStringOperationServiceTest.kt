@@ -2,7 +2,10 @@ package handon.redis.service
 
 import handon.redis.repository.StringRepository
 import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
+import java.lang.IllegalArgumentException
+import java.time.Duration
 
 
 internal class StringStringOperationServiceTest {
@@ -17,7 +20,18 @@ internal class StringStringOperationServiceTest {
 
         underTest.set(key, value, null)
 
-        assertEquals(value, repository.map[key])
+        assertEquals(value, repository.map[key]?.value)
+    }
+
+    @Test
+    fun setAndGetWhenKeyExpired() {
+        val key = "1"
+        val value = "test"
+        val expriation = Duration.ofMillis(50)
+        underTest.set(key, value, expriation)
+        assertEquals(value, underTest.get(key))
+        Thread.sleep(50)
+        assertEquals(null, underTest.get(key))
     }
 
     @Test
