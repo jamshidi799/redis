@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package redis.string;
+
+option java_multiple_files = true;
+import "google/protobuf/duration.proto";
+
+service StringService {
+  rpc set (SetRequestProto) returns (EmptyResponseProto);
+  rpc get (GetRequestProto) returns (GetResponseProto);
+  rpc getSet (GetSetRequestProto) returns (GetResponseProto);
+  rpc multipleGet (MultipleGetRequestProto) returns (MultipleGetResponseProto);
+}
+
+message SetRequestProto{
+  string key = 1;
+  string value = 2;
+  google.protobuf.Duration expiration = 3;
+}
+
+message GetRequestProto{
+  string key = 1;
+}
+
+message GetSetRequestProto{
+  string key = 1;
+  string value = 2;
+}
+
+message GetResponseProto{
+  string value = 1;
+}
+
+message MultipleGetRequestProto{
+  repeated string keys = 1;
+}
+
+message MultipleGetResponseProto{
+  map<string, string> values = 1;
+}
+
+message EmptyResponseProto{}
+
+
+
+

@@ -12,7 +12,7 @@ import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 @Component
-class Loader(
+class LoadSnapshot(
     private val inMemoryStringRepository: InMemoryStringRepository,
     private val cassandraStringRepository: CassandraStringRepository,
     private val inMemoryListRepository: InMemoryListRepository,

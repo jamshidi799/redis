@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 import javax.annotation.PreDestroy
 
 @Component
-class Snapshot(
+class TakeSnapshot(
     private val inMemoryStringRepository: InMemoryStringRepository,
     private val cassandraStringRepository: CassandraStringRepository,
     private val inMemoryListRepository: InMemoryListRepository,
