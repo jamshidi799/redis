@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import java.time.Duration
 
 
-internal class StringStringEntityOperationServiceTest {
+internal class StringOperationServiceTest {
 
     private val repository = InMemoryStringRepository()
     private val underTest = StringOperationServiceImpl(repository)  // todo: serviceImpl?
