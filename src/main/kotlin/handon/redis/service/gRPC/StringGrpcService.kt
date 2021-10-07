@@ -17,20 +17,20 @@ class StringGrpcService(
             request.value,
             Duration.ofSeconds(request.expiration.seconds, request.expiration.nanos.toLong())
         )
-        responseObserver.onNext(EmptyResponseProto.getDefaultInstance());
-        responseObserver.onCompleted();
+        responseObserver.onNext(EmptyResponseProto.getDefaultInstance())
+        responseObserver.onCompleted()
     }
 
     override fun get(request: GetRequestProto, responseObserver: StreamObserver<GetResponseProto>) {
         val value = stringOperationService.get(request.key)
-        responseObserver.onNext(GetResponseProto.newBuilder().setValue(value ?: "").build());
-        responseObserver.onCompleted();
+        responseObserver.onNext(GetResponseProto.newBuilder().setValue(value ?: "").build())
+        responseObserver.onCompleted()
     }
 
     override fun getSet(request: GetSetRequestProto, responseObserver: StreamObserver<GetResponseProto>) {
         val value = stringOperationService.getSet(request.key, request.value)
-        responseObserver.onNext(GetResponseProto.newBuilder().setValue(value ?: "").build());
-        responseObserver.onCompleted();
+        responseObserver.onNext(GetResponseProto.newBuilder().setValue(value ?: "").build())
+        responseObserver.onCompleted()
     }
 
     override fun multipleGet(
@@ -38,7 +38,7 @@ class StringGrpcService(
         responseObserver: StreamObserver<MultipleGetResponseProto>
     ) {
         val values = stringOperationService.multipleGet(request.keysList).mapValues { it.value ?: "" }
-        responseObserver.onNext(MultipleGetResponseProto.newBuilder().putAllValues(values).build());
-        responseObserver.onCompleted();
+        responseObserver.onNext(MultipleGetResponseProto.newBuilder().putAllValues(values).build())
+        responseObserver.onCompleted()
     }
 }

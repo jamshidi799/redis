@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package redis.list;
+
+option java_multiple_files = true;
+import "google/protobuf/duration.proto";
+
+service ListService {
+  rpc ListSet(ListSetRequestProto) returns (ListSetResponseProto);
+  rpc ListIndex(ListIndexRequestProto) returns (ListIndexResponseProto);
+  rpc RightPush(PushRequestProto) returns (PushResponseProto);
+  rpc LeftPush(PushRequestProto) returns (PushResponseProto);
+  rpc LeftPop(PopRequestProto) returns (PopResponseProto);
+  rpc LeftMultiplePop(MultiplePopRequestProto) returns (MultiplePopResponseProto);
+}
+
+message ListSetRequestProto{
+  string key = 1;
+  int32 index = 2;
+  string element = 3;
+}
+
+message ListSetResponseProto{
+  string result = 1;
+}
+
+message ListIndexRequestProto{
+  string key = 1;
+  int32 index = 2;
+}
+
+message ListIndexResponseProto{
+  string result = 1;
+}
+
+message PushRequestProto{
+  string key = 1;
+  repeated string elements = 2;
+}
+
+message PushResponseProto{
+  int32 length = 1;
+}
+
+message PopRequestProto{
+  string key = 1;
+}
+
+message PopResponseProto{
+  string poped_value = 1;
+}
+
+message MultiplePopRequestProto{
+  string key = 1;
+  int32 count = 2;
+}
+
+message MultiplePopResponseProto{
+  repeated string values = 1;
+}
