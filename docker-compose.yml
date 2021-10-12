@@ -1,4 +1,13 @@
-redis:
-  image: redis:latest
-  ports:
-    - "6379:6379"
+version: "3.7"
+
+services:
+  redis-clone:
+    image: redis-clone
+    ports:
+      - 19999:9999
+    networks:
+      - redis-clone
+
+networks:
+  redis-clone:
+    driver: bridge
