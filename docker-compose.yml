@@ -4,10 +4,28 @@ services:
   redis-clone:
     image: redis-clone
     ports:
-      - 19999:9999
+      - 8090:8080
+      - 9090:9090
     networks:
       - redis-clone
+    depends_on:
+      - cassandra
+
+  cassandra:
+    image: cassandra
+    restart: always
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+    ports:
+      - 9042:9042
+    networks:
+      - redis-clone
+    environment:
+      CASSANDRA_DC: DC1
 
 networks:
   redis-clone:
     driver: bridge
+
+volumes:
+  cassandra-data:
