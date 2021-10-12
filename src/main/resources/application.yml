@@ -5,6 +5,10 @@ spring:
       port: 9042
       schema-action: create_if_not_exists
       keyspace-name: redis
+      local-datacenter: datacenter1
   jpa:
     hibernate:
       ddl-auto: update
+
+server:
+  shutdown: graceful
